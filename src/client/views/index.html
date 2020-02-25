@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Travel Planner</title>
+
+</head>
+<body>
+
+    <div class="container">
+        
+        <div id="info">
+
+            <h1>Travel Planner</h1>
+            <form action="">
+                <p>Enter a city you wish to visit</p>
+                <input type="text" placeholder="ex: Tokyo" id="place"> 
+                <p>When is would you like to go?</p>
+                <input type="text" placeholder="ex: 01/29/20" id="datepicker"> 
+                <br><br>
+                <button id="submit">Submit</button>
+            </form>
+
+            <div id="notes">
+                <h2>Notes</h2>
+                <form action="">
+                    <textarea name="note" id="userNote" cols="30" rows="5"></textarea>
+                </form>
+                <button id="save">Save</button>
+                <button id="clear">Clear</button>
+                
+                <ul id="list"></ul>
+            </div>
+
+        </div>
+
+        <div id="results">
+            
+            <h2>My trip to: </h2>
+            <h3 id="tripTitle"></h3>
+
+            <h2>Departing: </h2>
+            <h3 id="tripDate"></h3>
+
+            <div id="tripDiv"></div>
+            
+            <h2>Weather:</h2>
+            <p id="highTemp"></p>
+            <p id="lowTemp"></p>
+            <p id="description"></p>
+
+        </div>
+
+    
+        <div id="image"></div>
+        
+        
+    </div>
+
+    
+
+    <script>
+        if('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        } else {
+            console.log('Service workers are not supported.');
+        }
+        
+        $( function() {
+            $( "#datepicker" ).datepicker();
+        } );
+
+    </script>
+</body>
+</html>
