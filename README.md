@@ -9,7 +9,7 @@ for their trips.
 
 
 To use the app simply open the terminal, run 'npm install'. After that 
-run 'npm run prod' and then 'npm run server'. Afterwards open the url 
+run 'npm run build' and then 'npm run server'. Afterwards open the url 
 shown in the terminal. After opening the webapge, follow the instructions 
 provided on the form. Hit submit and wait for the response. The response 
 will show up to the right of the form along with an image relating to your
