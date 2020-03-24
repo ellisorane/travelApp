@@ -16,6 +16,8 @@ export const submit = document.getElementById('submit').addEventListener('click'
     const daysCalc = ((date - currentTime)/1000)/86400;
     const days = Math.floor(daysCalc);
     const input = document.getElementById('place').value;
+    const tripDays = document.getElementById('tripDays');
+
 
     //Check for valid city entry
     checkPlaceInput(input);
@@ -34,9 +36,7 @@ export const submit = document.getElementById('submit').addEventListener('click'
         document.getElementById('tripDate').innerHTML = dateVal;
 
         //Trip info 
-        const tripDiv = document.getElementById('tripDiv');
-        const tripTemplate = `<p>${name}, ${countryName} trip is ${days} days away.</p>`;
-        tripDiv.innerHTML = tripTemplate;
+        tripDays.innerHTML = `Days until trip: ${days}`;
 
         //Darksky API address
         let darkSky =  `${corsFix}https://api.darksky.net/forecast/${darkKey}/${lat},${long},${time}?exclude=currently,flags`;
@@ -69,7 +69,7 @@ export const submit = document.getElementById('submit').addEventListener('click'
                 //console.log(data3);
                 const picSrc = data3.hits[0].webformatURL;
                 const image = document.getElementById('image');
-                image.innerHTML = `<br><img src="${picSrc}" alt="Place image">`;   
+                image.innerHTML = `<img src="${picSrc} alt="Place image">`;   
 
             });
         });
@@ -77,10 +77,37 @@ export const submit = document.getElementById('submit').addEventListener('click'
     //reset input fields
     document.getElementById('place').value = '';
     document.getElementById('datepicker').value = '';
+
+    
+    resAnim();
+    
+
     
 })
 
 
+//results animation
+export const resAnim = () => {
+    const tripTitle = document.getElementById('tripTitle');
+    const tripDate = document.getElementById('tripDate');
+    const highTemp = document.getElementById('highTemp');
+    const lowTemp = document.getElementById('lowTemp');
+    const description = document.getElementById('description');
+    const imageRes = document.getElementById('image');
+
+    const arr = [tripTitle, tripDate, highTemp, lowTemp, description, imageRes, tripDays]
+    
+    for(let i = 0; i < arr.length; i++) {
+        
+        if(arr[i].style.animationName === 'fadeIn') {
+        arr[i].style.animationName = 'none';
+        setTimeout(function(){ arr[i].style.animationName = 'fadeIn'; }, 500);
+       } else {
+        arr[i].style.animationName = 'fadeIn';
+       }
+    }
+    
+}
 
 
 

@@ -1,18 +1,22 @@
+import { resAnim } from '../src/client/js/app'
 //Check if city is only letters
-export const checkPlaceInput = (input) => {
+export const checkPlaceInput = (city) => {
     const letters = /^[A-Za-z]+$/;
         
-    if(input.match(letters)){ 
-        console.log('City input is valid');
+    if(city.match(letters)){ 
         return true;
     } else {
-        document.getElementById('tripTitle').textContent = 'Please enter valid city.';
+        document.getElementById('tripTitle').textContent = 'Missing city';
         document.getElementById('tripDate').textContent = '';
-        tripDiv.innerHTML = ''; 
+        document.getElementById('tripDays').textContent = '';
         document.getElementById('highTemp').innerHTML = '';
         document.getElementById('lowTemp').innerHTML = '';
-        document.getElementById('description').innerHTML = '';    
-
-        throw Error('Fail, City input in valid');
+        document.getElementById('description').innerHTML = '';
+        const image = document.getElementById('image');
+        if (image.hasChildNodes()) {
+            image.removeChild(image.firstChild);
+        }
+        resAnim();
+        throw Error('Fail, Missing city');
     }
 }

@@ -3,81 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Travel Planner</title>
 
 </head>
 <body>
-
+    <!-- Site container start. This container holds everything.  -->
     <div class="container">
-        
-        <div id="info">
+        <!-- Site row start. This row hold everything -->
+        <div class="row">
+            <!-- Left column start -->
+            <div class="col-sm-6 text-center mt-4" id="main">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+            
+                                <div id="info">
+            
+                                    <h1>Travel Planner</h1>
+                                    <form action="">
+                                        <p>Enter a city you wish to visit</p>
+                                        <input type="text" placeholder="ex: Tokyo" id="place"> 
+                                        <p>When is would you like to go?</p>
+                                        <input type="text" placeholder="ex: 01/29/20" id="datepicker"> 
+                                        <br><br>
+                                        <button id="submit">Submit</button>
+                                    </form>
+            
+                                </div>
 
-            <h1>Travel Planner</h1>
-            <form action="">
-                <p>Enter a city you wish to visit</p>
-                <input type="text" placeholder="ex: Tokyo" id="place"> 
-                <p>When is would you like to go?</p>
-                <input type="text" placeholder="ex: 01/29/20" id="datepicker"> 
-                <br><br>
-                <button id="submit">Submit</button>
-            </form>
+                                <div class="mt-4" id="notes">
+                                    <h2>Notes</h2>
+                                    <form action="">
+                                        <textarea name="note" id="userNote" cols="30" rows="2"></textarea>
+                                    </form>
+                                    <button id="save">Save</button>
+                                    <button id="delete-single">Delete</button>
+                                    <button id="clear">Clear All</button>
+                        
+                                    <h3 class="text-center" id="error-note"></h3>
+                                    
+                                    <ul class="text-center m-auto" id="note-list">
 
-            <div id="notes">
-                <h2>Notes</h2>
-                <form action="">
-                    <textarea name="note" id="userNote" cols="30" rows="5"></textarea>
-                </form>
-                <button id="save">Save</button>
-                <button id="clear">Clear</button>
-                
-                <ul id="list"></ul>
+                                    </ul>
+                                </div>
+            
+                            </div>
+                        </div>
+                    </div>
             </div>
+            <!-- Left column ends  -->
 
+            <!-- Right column starts  -->
+            <div class="col-sm-5 text-center mt-4"  id="sidebar">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+
+                                <div id="results">
+                        
+                                    <h1>My trip to: </h1>
+                                    <h5 id="tripTitle"></h5>
+                        
+                                    <h2 class="mt-3">Departing: </h2>
+                                    <h5  id="tripDate"></h5>
+                        
+                                    <h5 id="tripDays"></h5>
+                                    
+                                    <h2 class="mt-3">Weather:</h2>
+                                    <p id="highTemp"></p>
+                                    <p id="lowTemp"></p>
+                                    <p id="description"></p>
+                        
+                                    <div class="m-auto pb-5" id="image"></div>
+                        
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <!-- Right column ends  -->
         </div>
-
-        <div id="results">
-            
-            <h2>My trip to: </h2>
-            <h3 id="tripTitle"></h3>
-
-            <h2>Departing: </h2>
-            <h3 id="tripDate"></h3>
-
-            <div id="tripDiv"></div>
-            
-            <h2>Weather:</h2>
-            <p id="highTemp"></p>
-            <p id="lowTemp"></p>
-            <p id="description"></p>
-
-        </div>
-
-    
-        <div id="image"></div>
-        
+        <!-- Site row ends -->
         
     </div>
+   <!-- Site container end   -->
 
-    
-
+   
     <script>
-        if('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js');
-            });
-        } else {
-            console.log('Service workers are not supported.');
-        }
+        // if('serviceWorker' in navigator) {
+        //     window.addEventListener('load', () => {
+        //         navigator.serviceWorker.register('/service-worker.js');
+        //     });
+        // } else {
+        //     console.log('Service workers are not supported.');
+        // }
         
         $( function() {
             $( "#datepicker" ).datepicker();
         } );
 
     </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
 </html>
