@@ -23,7 +23,7 @@ export const submit = document.getElementById('submit').addEventListener('click'
     checkPlaceInput(input);
 
     //Geonames API address
-    let geoUrl = `http://api.geonames.org/searchJSON?q=${input}&maxRows=10&username=${geoKey}`;
+    let geoUrl = `https://api.geonames.org/searchJSON?q=${input}&maxRows=10&username=${geoKey}`;
     //Call Geonames
     getData(geoUrl)
     .then(function (data) {
