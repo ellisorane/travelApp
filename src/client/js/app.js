@@ -18,12 +18,11 @@ export const submit = document.getElementById('submit').addEventListener('click'
     const input = document.getElementById('place').value;
     const tripDays = document.getElementById('tripDays');
 
-
     //Check for valid city entry
-    checkPlaceInput(input);
+    checkPlaceInput(input, dateVal);
 
     //Geonames API address
-    let geoUrl = `http://api.geonames.org/searchJSON?q=${input}&maxRows=10&username=${geoKey}`;
+    let geoUrl = `https://secure.geonames.org/searchJSON?q=${input}&maxRows=10&username=${geoKey}`;
     //Call Geonames
     getData(geoUrl)
     .then(function (data) {
@@ -43,21 +42,15 @@ export const submit = document.getElementById('submit').addEventListener('click'
         //Call DarkSky
         getData(darkSky)
         .then(function(data2) {
-            //console.log(data2);
-            const summary = data2.daily.data[0].summary;
-            const temperatureHigh = data2.daily.data[0].temperatureHigh;
-            const temperatureLow = data2.daily.data[0].temperatureLow;
-            
+            // console.log(data2);
             //Post data in server
             postData('/postData', {
                 name: data.geonames[0].name, 
                 countryName: data.geonames[0].countryName,
-                summary: data2.daily.data[0].summary, 
                 temperatureHigh: data2.daily.data[0].temperatureHigh, 
                 temperatureLow: data2.daily.data[0].temperatureLow
             });
             
-
             //Update UI 
             updateUI(); 
             
@@ -67,10 +60,15 @@ export const submit = document.getElementById('submit').addEventListener('click'
             getData(pixabay)
             .then(function(data3) {
                 //console.log(data3);
-                const picSrc = data3.hits[0].webformatURL;
                 const image = document.getElementById('image');
-                image.innerHTML = `<img src="${picSrc} alt="Place image">`;   
-
+                if (data3.total !== 0) {
+                    const picSrc = data3.hits[0].webformatURL;
+                    image.innerHTML = `<img src="${picSrc} alt="Place image">`;
+                } else {
+                    image.innerHTML = '<h2 id="img-err">No images found</h2>';
+                    document.getElementById('img-err').style.textDecoration = 'none';
+                }
+        
             });
         });
     });
@@ -78,38 +76,8 @@ export const submit = document.getElementById('submit').addEventListener('click'
     document.getElementById('place').value = '';
     document.getElementById('datepicker').value = '';
 
-    
     resAnim();
-    
-
-    
 })
-
-
-//results animation
-export const resAnim = () => {
-    const tripTitle = document.getElementById('tripTitle');
-    const tripDate = document.getElementById('tripDate');
-    const highTemp = document.getElementById('highTemp');
-    const lowTemp = document.getElementById('lowTemp');
-    const description = document.getElementById('description');
-    const imageRes = document.getElementById('image');
-
-    const arr = [tripTitle, tripDate, highTemp, lowTemp, description, imageRes, tripDays]
-    
-    for(let i = 0; i < arr.length; i++) {
-        
-        if(arr[i].style.animationName === 'fadeIn') {
-        arr[i].style.animationName = 'none';
-        setTimeout(function(){ arr[i].style.animationName = 'fadeIn'; }, 500);
-       } else {
-        arr[i].style.animationName = 'fadeIn';
-       }
-    }
-    
-}
-
-
 
 //GET route that gets info from weather API
 const getData = async(url) => {
@@ -152,8 +120,29 @@ const updateUI = async () => {
         const projectArr = await request.json();
             document.getElementById('highTemp').innerHTML = `High temp: ${projectArr[0].highTemp}&#8457`;
             document.getElementById('lowTemp').innerHTML = `Low temp: ${projectArr[0].lowTemp}&#8457`;
-            document.getElementById('description').innerHTML = `Description: ${projectArr[0].summ}`;        
     } catch(error) {
         console.log('error', error);
     }
 };
+
+//results animation
+export const resAnim = () => {
+    const tripTitle = document.getElementById('tripTitle');
+    const tripDate = document.getElementById('tripDate');
+    const highTemp = document.getElementById('highTemp');
+    const lowTemp = document.getElementById('lowTemp');
+    const imageRes = document.getElementById('image');
+
+    const arr = [tripTitle, tripDate, highTemp, lowTemp, imageRes, tripDays]
+    
+    for(let i = 0; i < arr.length; i++) {
+        
+        if(arr[i].style.animationName === 'fadeIn') {
+        arr[i].style.animationName = 'none';
+        setTimeout(function(){ arr[i].style.animationName = 'fadeIn'; }, 500);
+       } else {
+        arr[i].style.animationName = 'fadeIn';
+       }
+    }
+    
+}

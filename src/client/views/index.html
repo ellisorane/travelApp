@@ -14,7 +14,7 @@
 </head>
 <body>
     <!-- Site container start. This container holds everything.  -->
-    <div class="container">
+    <div class="container" id="main-container">
         <!-- Site row start. This row hold everything -->
         <div class="row">
             <!-- Left column start -->
@@ -28,11 +28,11 @@
                                     <h1>Travel Planner</h1>
                                     <form action="">
                                         <p>Enter a city you wish to visit</p>
-                                        <input type="text" placeholder="ex: Tokyo" id="place"> 
+                                        <input type="text" placeholder="ex: Tokyo, Japan" id="place"> 
                                         <p>When is would you like to go?</p>
                                         <input type="text" placeholder="ex: 01/29/20" id="datepicker"> 
                                         <br><br>
-                                        <button id="submit">Submit</button>
+                                        <button class="btn btn-primary" id="submit">Submit</button>
                                     </form>
             
                                 </div>
@@ -42,13 +42,13 @@
                                     <form action="">
                                         <textarea name="note" id="userNote" cols="30" rows="2"></textarea>
                                     </form>
-                                    <button id="save">Save</button>
-                                    <button id="delete-single">Delete</button>
-                                    <button id="clear">Clear All</button>
+                                    <button class="btn btn-primary" id="save">Save</button>
+                                    <button class="btn btn-primary" id="delete-single">Delete</button>
+                                    <button class="btn btn-primary" id="clear">Clear All</button>
                         
                                     <h3 class="text-center" id="error-note"></h3>
                                     
-                                    <ul class="text-center m-auto" id="note-list">
+                                    <ul class="text-left" id="note-list">
 
                                     </ul>
                                 </div>
@@ -97,13 +97,13 @@
 
    
     <script>
-//         if('serviceWorker' in navigator) {
-//             window.addEventListener('load', () => {
-//                 navigator.serviceWorker.register('/service-worker.js');
-//             });
-//         } else {
-//             console.log('Service workers are not supported.');
-//         }
+        // if('serviceWorker' in navigator) {
+        //     window.addEventListener('load', () => {
+        //         navigator.serviceWorker.register('/service-worker.js');
+        //     });
+        // } else {
+        //     console.log('Service workers are not supported.');
+        // }
         
         $( function() {
             $( "#datepicker" ).datepicker();

@@ -46,7 +46,6 @@ export const saveNote = () => {
 
     const getLastIndex = () => {
         if (localStorage.length !== 0) {
-            // noteId = localStorage.length + 1;
             let changeToInt
             let lastIndexToInt;
             let newArr = [];
@@ -77,12 +76,10 @@ export const saveNote = () => {
     //Save note
     saveBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        //
+        
         if(localStorage.key(0)) {
             if(!localStorage.key(0).match(/(\d+)/)) {
                 localStorage.clear(); 
-            } else {
-                console.log('Local storage is empty');
             }
         }
         

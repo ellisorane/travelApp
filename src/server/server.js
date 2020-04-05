@@ -9,15 +9,12 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.static('dist'));
 
-
-
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html');
 })
 
-
 // designates what port the app will listen to for incoming requests
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log('Example app listening on port 3000!')
     console.log('http://localhost:3000');
@@ -36,7 +33,6 @@ function getProjectArr(req, res) {
     console.log(projectArr);
 };
 
-
 //POSt route
 app.post('/postData', postData);
 
@@ -48,7 +44,6 @@ function postData(request, response) {
     projectData = {
         place: data.name, 
         country: data.countryName,
-        summ: data.summary, 
         highTemp: data.temperatureHigh, 
         lowTemp: data.temperatureLow,
     };
