@@ -3,7 +3,7 @@ import { resAnim } from './resAnim'
 import fetch from 'node-fetch'
 
 export const submit = document.getElementById('submit').addEventListener('click', async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     //Divs
     const divs = {
@@ -17,9 +17,9 @@ export const submit = document.getElementById('submit').addEventListener('click'
 
     const input = document.getElementById('place').value
     const dateVal = document.getElementById('datepicker').value
-    const date = new Date(dateVal);
-    const currentTime = new Date();
-    const time = date.getTime()/1000;
+    const date = new Date(dateVal)
+    const currentTime = new Date()
+    const time = date.getTime()/1000
     let name
     let countryName
     let lat
@@ -51,10 +51,10 @@ export const submit = document.getElementById('submit').addEventListener('click'
     .then(data => {
         if (data.total !== 0) {
         picSrc = data.hits[0].webformatURL
-        divs.imageRes.innerHTML = `<img src="${picSrc} alt="Place image">`;
+        divs.imageRes.innerHTML = `<img src="${picSrc} alt="Place image">`
         } else {
-            divs.imageRes.innerHTML = '<h2 id="img-err">No images found</h2>';
-            document.getElementById('img-err').style.textDecoration = 'none';
+            divs.imageRes.innerHTML = '<h2 id="img-err">No images found</h2>'
+            document.getElementById('img-err').style.textDecoration = 'none'
         }
     })
 
@@ -74,9 +74,9 @@ export const submit = document.getElementById('submit').addEventListener('click'
 
     ////reset input fields
     document.getElementById('place').value = '';
-    document.getElementById('datepicker').value = '';
+    document.getElementById('datepicker').value = ''
 
-    resAnim();
+    resAnim()
 })
 
 
@@ -93,10 +93,10 @@ const postData = async(url = '', data = {}) => {
     });
 
     try {
-        const postedData = await response.json();
-        // console.log(postedData);
-        return postedData;
+        const postedData = await response.json()
+        // console.log(postedData)
+        return postedData
     } catch(error) {
-        console.log('error', error);
+        console.log('error', error)
     };
 };
