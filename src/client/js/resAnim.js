@@ -11,11 +11,11 @@ export const resAnim = () => {
     
     for(let i = 0; i < arr.length; i++) {
         
-        if(arr[i].style.animationName === 'fadeIn') {
+        if(arr[i].style.animationName === 'resultsAnim') {
         arr[i].style.animationName = 'none';
-        setTimeout(function(){ arr[i].style.animationName = 'fadeIn'; }, 500);
+        setTimeout(function(){ arr[i].style.animationName = 'resultsAnim'; }, 500);
        } else {
-        arr[i].style.animationName = 'fadeIn';
+        arr[i].style.animationName = 'resultsAnim';
        }
     }
     

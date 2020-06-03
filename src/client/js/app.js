@@ -1,20 +1,18 @@
 import { checkInput } from './checkInput'
 import { resAnim } from './resAnim'
 import fetch from 'node-fetch'
+import { displayModal } from './displayModal'
 
 export const submit = document.getElementById('submit').addEventListener('click', async (e) => {
     e.preventDefault()
-
-    //Divs
-    const divs = {
-        tripTitle: document.getElementById('tripTitle'),
-        tripDate: document.getElementById('tripDate'),
-        tripDays: document.getElementById('tripDays'),
-        highTemp: document.getElementById('highTemp'),
-        lowTemp: document.getElementById('lowTemp'),
-        imageRes: document.getElementById('image')
-    }
-
+    
+    const tripTitle = document.getElementById('tripTitle')
+    const tripDate = document.getElementById('tripDate')
+    const tripDays = document.getElementById('tripDays')
+    const highTempDiv = document.getElementById('highTemp')
+    const lowTempDiv = document.getElementById('lowTemp')
+    const imageRes = document.getElementById('image')
+    
     const input = document.getElementById('place').value
     const dateVal = document.getElementById('datepicker').value
     const date = new Date(dateVal)
@@ -28,7 +26,11 @@ export const submit = document.getElementById('submit').addEventListener('click'
     let lowTemp
     let picSrc
 
-    console.log('Submitted')
+    //  Animate results
+    resAnim()
+    //Display results
+    displayModal()
+    
 
     //Check input
     await checkInput(input, dateVal)
@@ -51,32 +53,31 @@ export const submit = document.getElementById('submit').addEventListener('click'
     .then(data => {
         if (data.total !== 0) {
         picSrc = data.hits[0].webformatURL
-        divs.imageRes.innerHTML = `<img src="${picSrc} alt="Place image">`
+        imageRes.innerHTML = `<img src="${picSrc} alt="Place image">`
         } else {
-            divs.imageRes.innerHTML = '<h2 id="img-err">No images found</h2>'
+            imageRes.innerHTML = '<h2 id="img-err">No images found</h2>'
             document.getElementById('img-err').style.textDecoration = 'none'
         }
     })
 
     //Update UI
-    divs.tripTitle.textContent = name + ', ' + countryName
-    divs.tripDate.textContent = dateVal
+    tripTitle.textContent = name + ', ' + countryName
+    tripDate.textContent = dateVal
     let days = Math.floor(((date - currentTime)/1000)/86400) + 1
     if(days < 0) {
-        divs.tripDays.textContent = 'This date has already passed'
+        tripDays.textContent = 'This date has already passed'
     } else if(days === 0) {
-        divs.tripDays.textContent = 'Trip is today'
+        tripDays.textContent = 'Trip is today'
     } else {
-        divs.tripDays.textContent = 'Days until trip: ' + days
+        tripDays.innerHTML = `<strong>Days until trip:</strong> ${days}`
     }
-    divs.highTemp.textContent = `High Temperature: ${highTemp}`
-    divs.lowTemp.textContent = `Low Temperature: ${lowTemp}`
-
-    ////reset input fields
-    document.getElementById('place').value = '';
+    highTempDiv.innerHTML = `<strong>High Temperature:</strong> ${highTemp}`
+    lowTempDiv.innerHTML = `<strong>Low Temperature:</strong> ${lowTemp}`
+    
+    //reset input fields
+    document.getElementById('place').value = ''
     document.getElementById('datepicker').value = ''
 
-    resAnim()
 })
 
 
@@ -94,8 +95,8 @@ const postData = async(url = '', data = {}) => {
 
     try {
         const postedData = await response.json()
-        // console.log(postedData)
-        return postedData
+        // console.log(postedData);
+        return postedData;
     } catch(error) {
         console.log('error', error)
     };

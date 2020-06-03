@@ -1,36 +1,110 @@
+$div-color: #0a4a75;
+
 body {
     margin: auto;
     width: 100%;
-    min-height: 100vh;
-    transform-origin: left center;
+    height: 100%;
     animation-fill-mode: forwards;
     animation-duration: 2s;
     opacity: 0;
-    animation-name: slideIn;
-    background-color: rgb(51, 51, 51);
+    animation-name: bodyAnim;
+    background-color: #0e6ba8;
+    color: white;
 }
 
 #main-container {
-    min-height: inherit;
-    border: 1px solid gray;
+    height: 100%;
+}
+
+#logo {
+    background-color: $div-color;
+    padding: 10px;
+    margin: 50px 0;
     border-radius: 15px;
-    padding-bottom: 130px;
-    background-color: whitesmoke;
 }
 
 #airplane {
-    height: 100px;
-    width: 150px;
+    height: 120px;
+    width: 170px;
 }
 
-#note-list {
+.titles {
+    color: #eea654;
+}
+
+#main {
+    padding: 50px;
+    background-color: $div-color;
+    min-height: 500px;
+    margin-bottom: 50px;
+    border-radius: 15px;
+}
+
+#place, #datepicker {
     width: 50%;
+    text-align: center;
+}
+
+#notes {
+    padding: 50px;
+    background-color: $div-color;
+    min-height: 600px;
+    margin-bottom: 50px;
+    border-radius: 15px;
+}
+
+#userNote {
+    width: 90%;
+}
+
+
+.display-none {
+    display: none;
+}
+
+#backdrop {
+    position: fixed;
+    z-index: 1;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+#results-modal {
+    padding: 20px;
+    background-color: $div-color;
+    width: 50%;
+    min-height: 500px;
+    margin-top: 56px;
+    border-radius: 15px;
+    opacity: 0;
+    animation-name: slideFromTop;
+    transform-origin: top center;
+    animation-fill-mode: forwards;
+    animation-duration: 2s;
+    animation-delay: 0.5s;
+}
+
+.close, .close:hover {
+    color: white;
+    
+}
+
+
+#note-list {
+    width: 90%;
     margin: auto;
 }
 
+.note-item {
+    width: 100%;
+    padding: 10px 20px;
+}
+
 li {
-    list-style-type: decimal;
-    cursor: pointer;
+    list-style-type: none;
     padding: 10px;
 }
 
@@ -38,9 +112,9 @@ li {
     border: 1px solid rgb(46, 109, 255);
 }
 
-input, textarea {
+input, textarea, button:focus, .btn:focus {
     outline: none;
-    border-radius: 5%;
+    box-shadow: none;
 }
 
 h1, h2 {
@@ -48,30 +122,14 @@ h1, h2 {
     text-decoration: underline;
 }
 
-#image {
-    width: 80%;
-}
-
 img {
     height: auto;
-    width: 100%;
+    width: 50%;
+    border-radius: 10px;
 }
 
-//load animation
-@keyframes slideIn {
-    FROM {
-        transform: scaleX(0);
-        opacity: 0;
-    }
-    TO {
-        transform: scaleX(1);
-        opacity: 1;
-    }
-}
-
-//Results animation
 #tripTitle, #tripDate, #highTemp, #lowTemp, #tripDays, #image {
-    transform-origin: right center;
+    transform-origin: top center;
     opacity: 0;
     animation-fill-mode: forwards;
     animation-duration: 2s;
@@ -93,18 +151,45 @@ img {
     animation-delay: 0.4s;
 }
 
-#image {
-    animation-delay: 0.5s;
-}
-
-@keyframes fadeIn {
+@keyframes resultsAnim {
     FROM {
-        transform: scaleX(0);
+        transform: scaleY(0);
         opacity: 0;
     }
     TO {
-        transform: scaleX(1);
+        transform: scaleY(1);
         opacity: 1;
+    }
+}
+
+@keyframes slideFromTop {
+    FROM {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+    TO {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+//load animation
+@keyframes bodyAnim {
+    FROM {
+        opacity: 0;
+    }
+    TO {
+        opacity: 1;
+    }
+}
+
+@media(max-width: 500px) {
+    #results-modal {
+        width: 90%;
+    }
+
+    #place, #datepicker {
+        width: 89%;
     }
 }
 

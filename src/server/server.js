@@ -23,9 +23,12 @@ app.listen(port, function () {
 });
 
 //Keys
-const geoKey = process.env.GEO_KEY
-const darkKey = process.env.DARKSKY_KEY
-const pixKey = process.env.PIX_KEY
+// const geoKey = process.env.GEO_KEY
+const geoKey = 'oranethecrane'
+// const darkKey = process.env.DARKSKY_KEY
+const darkKey = 'a66b988c2d66045ea73975831e86648f'
+// const pixKey = process.env.PIX_KEY
+const pixKey = '15324148-2985f37b999ac9cae0550d3a1'
 
 
 app.post('/geoApi', async(req, res) => {
